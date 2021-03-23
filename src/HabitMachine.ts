@@ -1,9 +1,4 @@
-import {
-    addDays,
-    eachDayOfInterval,
-    endOfMonth,
-    startOfMonth,
-} from "date-fns";
+import {addDays, eachDayOfInterval, endOfMonth, endOfWeek, startOfMonth, startOfWeek} from "date-fns";
 import {assign, createMachine} from "xstate";
 import {useMachine} from "xstate-svelte";
 
@@ -24,8 +19,8 @@ export type AppEvent =
 const buildContext = (date: Date, habits: Habit[]): AppContext => ({
     currentDate: date,
     currentMonth: eachDayOfInterval({
-        start: startOfMonth(date),
-        end: endOfMonth(date)
+        start: startOfWeek(startOfMonth(date), {weekStartsOn: 1}),
+        end: endOfWeek(endOfMonth(date), {weekStartsOn: 1})
     }),
     habits
 })
