@@ -17,12 +17,6 @@
             case "Home":
                 send({ type: "NAVIGATE", direction: "HOME" });
                 break;
-            case "Space":
-                send("EDIT");
-                break;
-            case "Escape":
-                send("CANCEL_EDIT");
-                break;
         }
     });
 </script>
@@ -34,10 +28,6 @@
         <button on:click={() => send({type: 'NAVIGATE', direction: 'BACK'})}>Back</button>
         <button on:click={() => send({type: 'NAVIGATE', direction: 'HOME'})}>Home</button>
         <button on:click={() => send({type: 'NAVIGATE', direction: 'FORWARD'})}>Forward</button>
-    </div>
-    <div>
-        <button on:click={() => send('EDIT')}>Add Habit</button>
-        <button on:click={() => send('RESET')}>Reset</button>
     </div>
     <div class="grid auto-fit">
         {#each currentMonth as day}
