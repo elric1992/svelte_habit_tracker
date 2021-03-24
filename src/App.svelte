@@ -8,22 +8,22 @@
     $: currentMonth = $state.context.currentMonth;
     $: habits = $state.context.habits;
 
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener('keydown', (e) => {
         switch (e.code) {
-            case "ArrowLeft":
-                send({type: "NAVIGATE", direction: "BACK"});
+            case 'ArrowLeft':
+                send({type: 'NAVIGATE', direction: 'BACK'});
                 break;
-            case "ArrowRight":
-                send({type: "NAVIGATE", direction: "FORWARD"});
+            case 'ArrowRight':
+                send({type: 'NAVIGATE', direction: 'FORWARD'});
                 break;
-            case "Home":
-                send({type: "NAVIGATE", direction: "HOME"});
+            case 'Home':
+                send({type: 'NAVIGATE', direction: 'HOME'});
                 break;
-            case "Space":
-                send("EDIT");
+            case 'Space':
+                send('EDIT');
                 break;
-            case "Escape":
-                send("CANCEL_EDIT");
+            case 'Escape':
+                send('CANCEL_EDIT');
                 break;
         }
     });
@@ -33,9 +33,7 @@
     <h1><b>Habit control</b></h1>
     <h2>{format(currentDate, 'MMMM - yyyy')}</h2>
     <div>
-        <button on:click={() => send('EDIT')} class="p-4 bg-red-400 rounded">
-            Add habit
-        </button>
+        <button on:click={() => send('EDIT')}>Add habit</button>
         <button on:click={() => send('RESET')}>RESET</button>
         {#if $state.matches('edit')}
             <AddHabit />
@@ -60,7 +58,6 @@
     main {
         text-align: center;
         padding: 1em;
-        /*max-width: 240px;*/
         margin: 0 auto;
     }
 

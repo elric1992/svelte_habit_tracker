@@ -2,7 +2,6 @@
     import {format, isToday} from "date-fns";
     import type {Habit} from "./Habit";
 
-    let num = 222222;
     export let day: Date;
     export let habits: Habit[];
     export let enabled: boolean;
@@ -34,15 +33,14 @@
 
 </script>
 
-<!--<div>{num}</div>-->
+
 {#if enabled}
     <main>
         <div class="day">{format(day, 'EEE. do')}
-<!--        <div class="day">-->
             {#each localHabits as habit}
-                <div on:click={() => toggleHabit(habit)}>{habit.name}</div>
+                <div class={`${isHabitCompleted(habit) ? 'toggle-habit' : ''}`}
+                     on:click={() => toggleHabit(habit)}>{habit.name}</div>
             {/each}
-<!--        </div>-->
         </div>
     </main>
 {:else}
@@ -61,6 +59,10 @@
 
     div.day:hover {
         background-color: #999999;
+    }
+
+    div.toggle-habit {
+        text-decoration: line-through;
     }
 </style>
 
