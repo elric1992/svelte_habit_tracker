@@ -1,30 +1,27 @@
-import {
-    addDays,
-    eachDayOfInterval,
-    endOfMonth,
-    endOfWeek,
-    isToday,
-    startOfMonth,
-    startOfWeek,
-} from "date-fns";
-import { assign, createMachine } from "xstate";
-import { useMachine } from "xstate-svelte";
-import type { Habit } from "./Habit";
+import {addDays, eachDayOfInterval, endOfMonth, endOfWeek, isToday, startOfMonth, startOfWeek} from "date-fns";
+import {assign, createMachine} from "xstate";
+import {useMachine} from "xstate-svelte";
+
 
 const loadHabits = () =>
-    (JSON.parse(localStorage.getItem("habits")) ?? []) as Habit[];
+    (JSON.parse(localStorage.getItem('habits')) ?? []) as Habit[];
+
 const saveHabits = (habits: Habit[]) =>
-    localStorage.setItem("habits", JSON.stringify(habits));
+    localStorage.setItem('habits', JSON.stringify(habits));
+
+export interface Habit {
+    name: string;
+}
 
 export interface AppContext {
     currentDate: Date;
-    currentMonth: Date[];
+    currentMonth: Date[],
     habits: Habit[];
 }
 
 export type AppEvent =
-    | { type: "NAVIGATE"; direction: "BACK" | "HOME" | "FORWARD" }
-    | { type: "EDIT" }
+    | { type: 'NAVIGATE'; direction: 'BACK' | 'HOME' | 'FORWARD' }
+    | { type: 'EDIT' }
     | { type: "CANCEL_EDIT" }
     | { type: "ADD_HABIT"; habit: Habit }
     | { type: "RESET" };
@@ -32,8 +29,8 @@ export type AppEvent =
 const buildContext = (date: Date, habits: Habit[]): AppContext => ({
     currentDate: date,
     currentMonth: eachDayOfInterval({
-        start: startOfWeek(startOfMonth(date), { weekStartsOn: 1 }),
-        end: endOfWeek(endOfMonth(date), { weekStartsOn: 1 }),
+        start: startOfWeek(startOfMonth(date), {weekStartsOn: 1}),
+        end: endOfWeek(endOfMonth(date), {weekStartsOn: 1})
     }),
     habits,
 });
@@ -90,5 +87,5 @@ export const habitMachine = createMachine<AppContext, AppEvent>({
     },
 });
 
-export const { state, send } = useMachine(habitMachine);
+export const {state, send} = useMachine(habitMachine);
 

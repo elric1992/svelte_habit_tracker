@@ -9,10 +9,7 @@
     onMount(() => inputRef.focus());
 </script>
 
-<div
-        class="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-screen space-y-2 text-2xl bg-red-400"
-        transition:fade>
-    <div class="text-4xl font-bold">Add new HaBit</div>
+<div>
     <input
             class="p-4 text-center text-gray-900"
             type="text"
@@ -24,5 +21,6 @@
         send({ type: 'ADD_HABIT', habit });
       }
     }} />
+    <button on:click={() => send({ type: 'ADD_HABIT', habit })}>Add</button>
     <button on:click={() => send('CANCEL_EDIT')}>Cancel</button>
 </div>

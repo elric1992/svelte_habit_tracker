@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { format, isToday } from "date-fns";
-    import type { Habit } from "./Habit";
+    import {format, isToday} from "date-fns";
+    import type {Habit} from "./Habit";
 
     export let day: Date;
     export let habits: Habit[];
@@ -30,29 +30,41 @@
         }
         localHabits = habits;
     };
+
 </script>
 
-<style>
-
-</style>
 
 {#if enabled}
-    <main
-            class={`p-4 transition duration-500 ease-in-out transform ${today ? 'bg-indigo-700' : 'bg-indigo-900'} rounded-lg cursor-pointer hover:shadow-xl hover:bg-orange-400 hover:text-gray-900 hover:scale-110`}>
-        <div class="text-xs">{format(day, 'EEE. do')}</div>
-        <div class="grid gap-2">
+    <main>
+        <div class="day">{format(day, 'EEE. do')}
             {#each localHabits as habit}
-                <div
-                        class={`select-none ${isHabitCompleted(habit) ? 'italic line-through text-gray-500' : ''}`}
-                        on:click={() => toggleHabit(habit)}>
-                    {habit.name}
-                </div>
+                <div class={`${isHabitCompleted(habit) ? 'toggle-habit' : ''}`}
+                     on:click={() => toggleHabit(habit)}>{habit.name}</div>
             {/each}
         </div>
     </main>
 {:else}
-    <main class="p-4 bg-indigo-900 rounded-lg opacity-50" />
+    <main/>
 {/if}
+
+<style>
+    div.day {
+        width: 100%;
+        border: 1px solid black;
+        margin: 2px;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: #ffebcd;
+    }
+
+    div.day:hover {
+        background-color: #999999;
+    }
+
+    div.toggle-habit {
+        text-decoration: line-through;
+    }
+</style>
 
 
 
